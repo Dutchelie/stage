@@ -36,8 +36,8 @@ class Wachtwoord extends CI_Controller {
         $lengte = strlen($password) >= 8 && strlen($password) <= 32;
 
         if ($lengte && preg_match_all('/[a-z+]/', $password, $matches) && preg_match('/[A-Z]/', $password) && preg_match('/\d/', $password) && preg_match('/\W+/', $password)) {
-            $result = count($matches[0]);
-            if ($result >= 5) {
+            //$result = count($matches[0]);
+            if (count($matches[0]) >= 5) {
                 $msg = array(
                     'response' => $matches,
                 );
