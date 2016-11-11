@@ -38,7 +38,7 @@ class Wachtwoord extends CI_Controller {
         if ($lengte && preg_match_all('/[a-z+a-z+a-z+a-z+a-z+]/', $password, $matches) && preg_match('/[A-Z]/', $password) && preg_match('/\d/', $password) && preg_match('/\W+/', $password)) {
             if ($matches >= 5) {
                 $msg = array(
-                    'response' => $matches,
+                    'response' => $password,
                 );
 
                 exit(json_encode($msg));
