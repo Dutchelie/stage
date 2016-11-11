@@ -43,6 +43,12 @@ class Wachtwoord extends CI_Controller {
                 );
 
                 exit(json_encode($msg));
+            } else {
+                $msg = array(
+                    'response' => 'Password voldoet niet aan de regels.',
+                );
+
+                exit(json_encode($msg));
             }
         } else {
             $msg = array(
