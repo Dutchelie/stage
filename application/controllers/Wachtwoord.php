@@ -14,6 +14,9 @@ class Wachtwoord extends CI_Controller {
         
         
         exit; 
+        
+        
+        echo "sdfsdfsdf";
 
         if ($this->input->post('password') && $this->input->post('repeatpassword')) {
             $this->equal_password();
