@@ -74,7 +74,7 @@ class Register extends CI_Controller {
         $minfn = 2;
         $maxfn = 20;
 
-        if ($firstname <= $minfn && $firstname >= $maxfn) {
+        if ($firstname >= $minfn && $firstname <= $maxfn) {
             $msg = array(
                 'response' => 'Voornaam is te kort of te lang.',
             );
@@ -89,7 +89,7 @@ class Register extends CI_Controller {
         $minln = 1;
         $maxln = 60;
 
-        if ($lastname <= $minln && $lastname >= $maxln) {
+        if ($lastname >= $minln && $lastname <= $maxln) {
             $msg = array(
                 'response' => 'Achternaam is te kort of te lang.',
             );
