@@ -75,13 +75,20 @@ class Register extends CI_Controller {
         $maxfn = 20;
 
         if ($firstname >= $minfn && $firstname <= $maxfn) {
+//            $msg = array(
+//                'response' => 'Voornaam is te kort of te lang.',
+//            );
+//
+//            exit(json_encode($msg));
+            $this->lastname_check();
+        } else {
             $msg = array(
                 'response' => 'Voornaam is te kort of te lang.',
             );
 
             exit(json_encode($msg));
         }
-        $this->lastname_check();
+        //$this->lastname_check();
     }
 
     private function lastname_check() {
