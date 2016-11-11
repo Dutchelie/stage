@@ -3,11 +3,11 @@
 class Register extends CI_Controller {
 
     public function index() {
-        
+
         if ($this->input->post('firstname') && $this->input->post('lastname') && $this->input->post('emailaddress') && $this->input->post('birthday')) {
             $this->captcha_check();
         }
-        
+
         $data["title"] = "Registreren";
         $data["h3"] = "<strong>Maken</strong> van uw gegevens";
         $data["p"] = "Voer uw persoonlijkegegevens in:";
@@ -36,41 +36,37 @@ class Register extends CI_Controller {
             $response = get_curl($url, $params);
             $result = json_decode($response);
             //var_dump($result->success);exit();
-            if ($result->success === TRUE) {
-                $this->terms_check();
-    //                $msg = array(
-    //                    'response' => 'captcha goed.',
-    //                );
-    //
-    //                exit(json_encode($msg));
-            } else {
+            if ($result->success === FALSE) {
                 $msg = array(
                     'response' => 'Vink het onderste vakje aan alstublieft.',
                 );
 
                 exit(json_encode($msg));
             }
-        }else {
+            $this->terms_check();
+//            $msg = array(
+//                'response' => 'captcha goed.',
+//            );
+//
+//            exit(json_encode($msg));
+        } else {
             show_error("No direct access allowed.");
         }
     }
 
     private function terms_check() {
-            if (($this->input->post('terms') == "on")) {
-                $this->firstname_check();
-//                $msg = array(
-//                    'response' => 'Alles is goed.',
-//                );
-//
-//                exit(json_encode($msg));
-            } else {
-                $msg = array(
-                    'response' => 'Accepteer de algemene voorwaarden alstublieft.',
-                );
+        if (($this->input->post('terms') == "off")) {
 
-                exit(json_encode($msg));
-            }
-        
+//
+            $msg = array(
+                'response' => 'Accepteer de algemene voorwaarden alstublieft.',
+            );
+
+            exit(json_encode($msg));
+        }
+
+
+        $this->firstname_check();
     }
 
     private function firstname_check() {
@@ -78,15 +74,14 @@ class Register extends CI_Controller {
         $minfn = 2;
         $maxfn = 20;
 
-        if ($firstname >= $minfn && $firstname <= $maxfn) {
-            $this->lastname_check();
-        } else {
+        if ($firstname <= $minfn && $firstname >= $maxfn) {
             $msg = array(
                 'response' => 'Voornaam is te kort of te lang.',
             );
 
             exit(json_encode($msg));
         }
+        $this->lastname_check();
     }
 
     private function lastname_check() {
@@ -94,32 +89,30 @@ class Register extends CI_Controller {
         $minln = 1;
         $maxln = 60;
 
-        if ($lastname >= $minln && $lastname <= $maxln) {
-            $this->email_valid();
-        } else {
+        if ($lastname <= $minln && $lastname >= $maxln) {
             $msg = array(
                 'response' => 'Achternaam is te kort of te lang.',
             );
 
             exit(json_encode($msg));
         }
+        $this->email_valid();
     }
 
     private function email_valid() {
         $email = $this->input->post('emailaddress');
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {
-            if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $email)) {
-                $this->age_check();
-            } else {
-                $msg = array(
-                    'response' => 'email is niet correct.',
-                );
-
-                exit(json_encode($msg));
-            }
-        } else {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) === TRUE) {
             $msg = array(
                 'response' => 'email is not valid.',
+            );
+
+            exit(json_encode($msg));
+        }
+        if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $email)) {
+            $this->age_check();
+        } else {
+            $msg = array(
+                'response' => 'email is niet correct.',
             );
 
             exit(json_encode($msg));
@@ -137,10 +130,10 @@ class Register extends CI_Controller {
             );
 
             exit(json_encode($msg));
-        } else {
-            //exit("ouder dan 13 jaar.");
-            $this->register_action();
         }
+
+        //exit("ouder dan 13 jaar.");
+        $this->register_action();
     }
 
     private function register_action() {
@@ -169,20 +162,18 @@ class Register extends CI_Controller {
             );
 
             exit(json_encode($msg));
-        } else {
-
-            $user_id = $this->register_model->register_data($account_data);
-            if ($user_id > 0) {
-                //exit('ID is groter dan 0');
-                $this->login_data_action($user_id);
-            } else {
-                $msg = array(
-                    'response' => 'ID kan niet 0 zijn.',
-                );
-
-                exit(json_encode($msg));
-            }
         }
+
+        $user_id = $this->register_model->register_data($account_data);
+        if ($user_id < 0) {
+            $msg = array(
+                'response' => 'ID kan niet 0 zijn.',
+            );
+
+            exit(json_encode($msg));
+        }
+        //exit('ID is groter dan 0');
+        $this->login_data_action($user_id);
     }
 
     private function login_data_action($user_id) {
@@ -190,16 +181,15 @@ class Register extends CI_Controller {
 
         //$user_id = $this->session->userdata('user_id');
         $send_userdata = $this->register_model->send_login_data($user_id, $user_email);
-        if ($send_userdata === TRUE) {
-            //exit('data in database');
-            $this->send_mail($user_id);
-        } else {
+        if ($send_userdata === FALSE) {
             $msg = array(
                 'response' => 'data niet in database.',
             );
 
             exit(json_encode($msg));
         }
+        //exit('data in database');
+        $this->send_mail($user_id);
     }
 
     private function send_mail($user_id) {
@@ -228,13 +218,7 @@ class Register extends CI_Controller {
         $this->email->set_mailtype('html');
 
         //$this->email->send();
-        if ($this->email->send() === TRUE) {
-            $msg = array(
-                'response' => 'Er is een mail naar u toegestuurd.',
-            );
-
-            exit(json_encode($msg));
-        } else {
+        if ($this->email->send() === FALSE) {
             $msg = array(
                 'response' => 'Niks verstuurd.',
             );
@@ -242,6 +226,11 @@ class Register extends CI_Controller {
             exit(json_encode($msg));
         }
         //echo $this->email->print_debugger();
+        $msg = array(
+            'response' => 'Er is een mail naar u toegestuurd.',
+        );
+
+        exit(json_encode($msg));
     }
 
 }
