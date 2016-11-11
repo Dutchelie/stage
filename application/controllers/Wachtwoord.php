@@ -38,11 +38,12 @@ class Wachtwoord extends CI_Controller {
         if ($lengte && preg_match_all('/[a-z+]/', $password, $matches) && preg_match('/[A-Z]/', $password) && preg_match('/\d/', $password) && preg_match('/\W+/', $password)) {
             //$result = count($matches[0]);
             if (count($matches[0]) >= 5) {
-                $msg = array(
-                    'response' => $matches,
-                );
-
-                exit(json_encode($msg));
+//                $msg = array(
+//                    'response' => $matches,
+//                );
+//
+//                exit(json_encode($msg));
+                $this->check_encryption();
             } else {
                 $msg = array(
                     'response' => 'Password voldoet niet aan de regels.',
