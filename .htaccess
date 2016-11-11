@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+Options +FollowSymLinks
+        RewriteEngine On
+        #RewriteBase /
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^(.*)$ index.php?/$1 [L]
+</IfModule>
+# Disable server signature
+ServerSignature Off
+#Header set Content-Security-Policy "default-src 'self' fonts.gstatic.com; font-src 'self';  form-action 'self'; frame-src 'self' www.youtube.com; img-src 'self' csi.gstatic.com i.ytimg.com; script-src 'self' maps.googleapis.com;"
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+Header set X-XSS-Protection "1; mode=block"
+#Header always append X-Frame-Options SAMEORIGIN
