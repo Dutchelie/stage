@@ -4,20 +4,6 @@ class Wachtwoord extends CI_Controller {
 
     public function index() {
 
-        $encryptcode = rawurlencode($_GET["hash"]);
-        //var_dump($encryptcode);
-        //$this->load->library('session');
-        //$this->session->set_flashdata('item', $encryptcode);
-        
-        
-        echo "hallo 88888";
-        
-        
-        exit; 
-        
-        
-        echo "sdfsdfsdf";
-
         if ($this->input->post('password') && $this->input->post('repeatpassword')) {
             $this->equal_password();
         }
