@@ -73,7 +73,11 @@ class Register extends CI_Controller {
         $firstname = strlen($this->input->post('firstname'));
         $minfn = 2;
         $maxfn = 20;
-        $check_firstname = $firstname <= $minfn && $firstname >= $maxfn;
+        $check = $firstname >= $minfn && $firstname <= $maxfn;
+        $check2 = $minfn <= $firstname && $maxfn >= $firstname;
+        
+        $check_firstname = $check || $check2;
+        
 
         if ($check_firstname === FALSE) {
             $msg = array(
@@ -82,11 +86,6 @@ class Register extends CI_Controller {
 
             exit(json_encode($msg));
         }
-//        $msg = array(
-//            'response' => 'Voornaam is te kort of te lang.',
-//        );
-//
-//        exit(json_encode($msg));
         $this->lastname_check();
     }
 
@@ -96,7 +95,7 @@ class Register extends CI_Controller {
         $maxln = 60;
         $check_lastname = $minln <= $lastname && $maxln >= $lastname;
 
-        if ($check_lastname === FALSE) {
+        if ($check_lastname === TRUE) {
             $msg = array(
                 'response' => 'Achternaam is te kort of te lang.',
             );
