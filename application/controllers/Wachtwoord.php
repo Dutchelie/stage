@@ -37,20 +37,19 @@ class Wachtwoord extends CI_Controller {
 
         if ($lengte && preg_match_all('/[a-z+]/', $password, $matches) && preg_match('/[A-Z]/', $password) && preg_match('/\d/', $password) && preg_match('/\W+/', $password)) {
             //$result = count($matches[0]);
-            if (count($matches[0]) >= 5) {
-//                $msg = array(
-//                    'response' => $matches,
-//                );
-//
-//                exit(json_encode($msg));
-                $this->check_encryption();
-            } else {
+            if (count($matches[0]) < 5) {
                 $msg = array(
                     'response' => 'Password voldoet niet aan de regels.',
                 );
 
                 exit(json_encode($msg));
             }
+//            $msg = array(
+//                'response' => $matches,
+//            );
+//
+//            exit(json_encode($msg));
+            $this->check_encryption();
         } else {
             $msg = array(
                 'response' => 'Password voldoet niet aan de regels.',
@@ -78,13 +77,7 @@ class Wachtwoord extends CI_Controller {
 
         $check_key = $this->wachtwoord_model->check_key($arr_key);
 
-        if (empty($check_key) === FALSE) {
-            $msg = array(
-                'response' => 'encryption key is fout.',
-            );
-
-            exit(json_encode($msg));
-        } else {
+        if (empty($check_key) === TRUE) {
             //key is good
             $wachtwoord_data = array(
                 'password' => $hash_pw,
@@ -92,20 +85,24 @@ class Wachtwoord extends CI_Controller {
 
             $arr_pwdata = $this->wachtwoord_model->store_password($wachtwoord_data);
 
-            if ($arr_pwdata === TRUE) {
-                $msg = array(
-                    'response' => 'Wachtwoord gemaakt.',
-                );
-
-                exit(json_encode($msg));
-            } else {
+            if ($arr_pwdata === FALSE) {
                 $msg = array(
                     'response' => 'data niet in database.',
                 );
 
                 exit(json_encode($msg));
             }
+            $msg = array(
+                'response' => 'Wachtwoord gemaakt.',
+            );
+
+            exit(json_encode($msg));
         }
+        $msg = array(
+            'response' => 'encryption key is fout.',
+        );
+
+        exit(json_encode($msg));
     }
 
 }
