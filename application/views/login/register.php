@@ -31,7 +31,7 @@
                         if (json.response === "Er is een mail naar u toegestuurd.") location.href = site_url;
                     }) 
                     .fail(function (error) {
-                        //console.log();
+                        console.log(error);
                         $('#title').html("Melding :");
                         $('#result').html("error:" +error);
                         $('#popup').modal('show');
