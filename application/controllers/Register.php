@@ -74,7 +74,7 @@ class Register extends CI_Controller {
         $minfn = 2;
         $maxfn = 20;
 
-        if (($firstname < $minfn || $firstname > $maxfn) === TRUE) {
+        if ($firstname < $minfn === TRUE || $firstname > $maxfn === TRUE) {
             $msg = array(
                 'response' => 'Voornaam is te kort of te lang.',
             );
@@ -102,7 +102,7 @@ class Register extends CI_Controller {
 
     private function email_valid() {
         $email = $this->input->post('emailaddress');
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL) === TRUE) {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {
             $msg = array(
                 'response' => 'email is not valid.',
             );
