@@ -4,9 +4,15 @@ class Register extends CI_Controller {
 
     public function index() {
 
-//        if (isset($this->input->post('submitForm'))) {
-//            $this->check_input();
-//        }
+        if ($this->input->is_ajax_request()) {
+            $this->check_input();
+//            $msg = array(
+//                'response' => 'Vul alle velden in alstublieft.',
+//            );
+//
+//            exit(json_encode($msg));
+        }
+        
 
         $data["title"] = "Registreren";
         $data["h3"] = "<strong>Maken</strong> van uw gegevens";
@@ -22,18 +28,18 @@ class Register extends CI_Controller {
 //            exit;
     }
 
-    public function check_input() {
-        if (empty($this->input->post('firstname')) === TRUE) {
-            $msg = array(
-            'response' => 'Vul alle velden in alstublieft.',
-        );
-
-        exit(json_encode($msg));
-        }
+    private function check_input() {
+//        if (empty($this->input->post('firstname')) === TRUE) {
+//            $msg = array(
+//            'response' => 'Vul alle velden in alstublieft.',
+//        );
+//
+//        exit(json_encode($msg));
+//        }
         if ($this->input->post('firstname') && $this->input->post('lastname') && $this->input->post('emailaddress') && $this->input->post('birthday')) {
             $this->captcha_check();
         }
-         $msg = array(
+        $msg = array(
             'response' => 'Vul alle velden in alstublieft.',
         );
 
@@ -41,7 +47,7 @@ class Register extends CI_Controller {
     }
 
     private function captcha_check() {
-        if ($this->input->is_ajax_request()) {
+        //if ($this->input->is_ajax_request()) {
 
             $url = "https://www.google.com/recaptcha/api/siteverify?";
             $secret = "6Lfp_AoUAAAAAOevj1eBx09wFMpllED1yAa4op60";
@@ -67,9 +73,9 @@ class Register extends CI_Controller {
 //            );
 //
 //            exit(json_encode($msg));
-        } else {
-            show_error("No direct access allowed.");
-        }
+//        } else {
+//            show_error("No direct access allowed.");
+//        }
     }
 
     private function terms_check() {
