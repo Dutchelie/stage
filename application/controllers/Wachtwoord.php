@@ -4,7 +4,7 @@ class Wachtwoord extends CI_Controller {
 
     public function index() {
 
-        if ($this->input->post('password') && $this->input->post('repeatpassword')) {
+        if ($this->input->is_ajax_request()) {
             $this->equal_password();
         }
 
