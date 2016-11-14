@@ -4,7 +4,7 @@ class Register extends CI_Controller {
 
     public function index() {
 
-        if (isset($_POST['submitForm'])) {
+        if (isset($this->input->post('submitForm'))) {
             $this->check_input();
         }
 
@@ -23,10 +23,17 @@ class Register extends CI_Controller {
     }
 
     private function check_input() {
+        if (empty($this->input->post('firstname')) === TRUE) {
+            $msg = array(
+            'response' => 'Vul alle velden in alstublieft.',
+        );
+
+        exit(json_encode($msg));
+        }
         if ($this->input->post('firstname') && $this->input->post('lastname') && $this->input->post('emailaddress') && $this->input->post('birthday')) {
             $this->captcha_check();
         }
-        $msg = array(
+         $msg = array(
             'response' => 'Vul alle velden in alstublieft.',
         );
 
