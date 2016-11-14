@@ -4,9 +4,9 @@ class Register extends CI_Controller {
 
     public function index() {
 
-        if (isset($this->input->post('submitForm'))) {
-            $this->check_input();
-        }
+//        if (isset($this->input->post('submitForm'))) {
+//            $this->check_input();
+//        }
 
         $data["title"] = "Registreren";
         $data["h3"] = "<strong>Maken</strong> van uw gegevens";
