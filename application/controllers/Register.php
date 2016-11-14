@@ -22,7 +22,7 @@ class Register extends CI_Controller {
 //            exit;
     }
 
-    private function check_input() {
+    public function check_input() {
         if (empty($this->input->post('firstname')) === TRUE) {
             $msg = array(
             'response' => 'Vul alle velden in alstublieft.',
