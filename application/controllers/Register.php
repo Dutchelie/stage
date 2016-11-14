@@ -97,13 +97,14 @@ class Register extends CI_Controller {
         $maxln = 60;
 
         if ($lastname >= $minln && $lastname <= $maxln) {
+            $this->email_valid();
+        } else {
             $msg = array(
                 'response' => 'Achternaam is te kort of te lang.',
             );
 
             exit(json_encode($msg));
         }
-        $this->email_valid();
     }
 
     private function email_valid() {
