@@ -6,12 +6,6 @@ class Register extends CI_Controller {
 
         if ($this->input->post('firstname') && $this->input->post('lastname') && $this->input->post('emailaddress') && $this->input->post('birthday')) {
             $this->captcha_check();
-        } else {
-            $msg = array(
-                'response' => 'Vul alle velden in alstublieft.',
-            );
-
-            exit(json_encode($msg));
         }
 
         $data["title"] = "Registreren";
@@ -26,6 +20,11 @@ class Register extends CI_Controller {
 //            $msg = 'twitter api';
 //            $this->twitter->update($msg);
 //            exit;
+        $msg = array(
+                'response' => 'Vul alle velden in alstublieft.',
+            );
+
+            exit(json_encode($msg));
     }
 
     private function captcha_check() {
