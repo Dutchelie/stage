@@ -74,11 +74,10 @@ class Register extends CI_Controller {
         $minfn = 2;
         $maxfn = 20;
         //$check_firstname = $firstname >= $minfn && $firstname <= $maxfn;
-        
-        $check2 = $firstname <= $minfn || $firstname <= $maxfn;
-        
 
-        if ($check2 === FALSE) {
+        $check2 = $firstname <= $minfn || $firstname <= $maxfn;
+
+        if ($check2 === FALSE || $firstname = 1) {
             $msg = array(
                 'response' => 'Voornaam is te kort of te lang.',
             );
