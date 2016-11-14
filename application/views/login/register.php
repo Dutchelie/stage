@@ -17,7 +17,7 @@
             var site_url = "<?php echo site_url("login"); ?>";
             console.log(form);
             $.ajax({
-                //url: "<?php //echo site_url('Register/captcha_check') ?>",
+                url: "<?php echo site_url('Register/check_input') ?>",
                 type: 'POST',
                 dataType: 'json',
                 data: form
