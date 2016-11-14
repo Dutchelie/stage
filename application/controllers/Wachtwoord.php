@@ -76,7 +76,7 @@ class Wachtwoord extends CI_Controller {
         }
         
         $user_id = $arr_key[0];
-        exit(json_encode($user_id));
+        //exit(json_encode($user_id));
 
         $check_key = $this->wachtwoord_model->check_key($arr_key);
 
@@ -84,6 +84,7 @@ class Wachtwoord extends CI_Controller {
             //key is good
             $wachtwoord_data = array(
                 'password' => $hash_pw,
+                'user_id' => $user_id,
             );
 
             $arr_pwdata = $this->wachtwoord_model->store_password($wachtwoord_data);
