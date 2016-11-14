@@ -67,7 +67,7 @@ class Wachtwoord extends CI_Controller {
         $hash_pw = md5($this->input->post('password'));
 
         $decryptcode = $this->encryption->decrypt($decrypt);
-        //exit(json_encode($decryptcode));
+        exit(json_encode($decryptcode));
 
         $key = explode('_', $decryptcode);
         $arr_key = array();
