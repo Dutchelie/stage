@@ -67,13 +67,16 @@ class Wachtwoord extends CI_Controller {
         $hash_pw = md5($this->input->post('password'));
 
         $decryptcode = $this->encryption->decrypt($decrypt);
-        exit(json_encode($decryptcode));
+        //exit(json_encode($decryptcode));
 
         $key = explode('_', $decryptcode);
         $arr_key = array();
         foreach ($key as $item) {
             $arr_key[] = $item;
         }
+        
+        $user_id = $arr_key[0];
+        exit(json_encode($user_id));
 
         $check_key = $this->wachtwoord_model->check_key($arr_key);
 
