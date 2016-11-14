@@ -73,38 +73,37 @@ class Register extends CI_Controller {
         $firstname = strlen($this->input->post('firstname'));
         $minfn = 2;
         $maxfn = 20;
+        $check_firstname = $minfn <= $firstname && $maxfn <= $firstname;
 
-        if ($firstname >= $minfn && $firstname <= $maxfn) {
-//            $msg = array(
-//                'response' => 'Voornaam is te kort of te lang.',
-//            );
-//
-//            exit(json_encode($msg));
-            $this->lastname_check();
-        } else {
+        if ($check_firstname === FALSE) {
             $msg = array(
                 'response' => 'Voornaam is te kort of te lang.',
             );
 
             exit(json_encode($msg));
         }
-        //$this->lastname_check();
+//        $msg = array(
+//            'response' => 'Voornaam is te kort of te lang.',
+//        );
+//
+//        exit(json_encode($msg));
+        $this->lastname_check();
     }
 
     private function lastname_check() {
         $lastname = strlen($this->input->post('lastname'));
         $minln = 1;
         $maxln = 60;
+        $check_lastname = $minln <= $lastname && $maxln >= $lastname;
 
-        if ($lastname >= $minln && $lastname <= $maxln) {
-            $this->email_valid();
-        } else {
+        if ($check_lastname === FALSE) {
             $msg = array(
                 'response' => 'Achternaam is te kort of te lang.',
             );
 
             exit(json_encode($msg));
         }
+        $this->email_valid();
     }
 
     private function email_valid() {
@@ -116,15 +115,15 @@ class Register extends CI_Controller {
 
             exit(json_encode($msg));
         }
-        if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $email)) {
-            $this->age_check();
-        } else {
+        if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $email) === FALSE) {
+
             $msg = array(
                 'response' => 'email is niet correct.',
             );
 
             exit(json_encode($msg));
         }
+        $this->age_check();
     }
 
     private function age_check() {
