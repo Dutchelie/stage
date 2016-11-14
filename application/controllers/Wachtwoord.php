@@ -84,10 +84,10 @@ class Wachtwoord extends CI_Controller {
             //key is good
             $wachtwoord_data = array(
                 'password' => $hash_pw,
-                'user_id' => $user_id,
+                //'user_id' => $user_id,
             );
 
-            $arr_pwdata = $this->wachtwoord_model->store_password($wachtwoord_data);
+            $arr_pwdata = $this->wachtwoord_model->store_password($wachtwoord_data, $user_id);
 
             if ($arr_pwdata === FALSE) {
                 $msg = array(
