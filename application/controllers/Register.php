@@ -73,7 +73,7 @@ class Register extends CI_Controller {
         $firstname = strlen($this->input->post('firstname'));
         $minfn = 2;
         $maxfn = 20;
-        $check_firstname = $minfn <= $firstname && $maxfn >= $firstname;
+        $check_firstname = $firstname <= $minfn && $firstname >= $maxfn;
 
         if ($check_firstname === FALSE) {
             $msg = array(
