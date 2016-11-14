@@ -92,7 +92,7 @@ class Register extends CI_Controller {
 
     private function lastname_check() {
         $lastname = strlen($this->input->post('lastname'));
-        $minln = 1;
+        $minln = 2;
         $maxln = 60;
         $check_lastname = $minln <= $lastname && $maxln >= $lastname;
 
