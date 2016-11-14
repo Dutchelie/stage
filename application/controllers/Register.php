@@ -95,7 +95,7 @@ class Register extends CI_Controller {
         $maxln = 60;
         $check_lastname = $minln <= $lastname && $maxln >= $lastname;
 
-        if ($check_lastname === TRUE) {
+        if ($check_lastname === FALSE) {
             $msg = array(
                 'response' => 'Achternaam is te kort of te lang.',
             );
