@@ -89,7 +89,7 @@
                             <div class="g-recaptcha" data-sitekey="6Lfp_AoUAAAAACLL26T91aoh7S6_-86DjlO4DLQ9"></div>
                             
                             <?php //echo add_csrf_token();?>
-                            <button type="submit" id="submitForm" class="btn btn-danger btn-block btn-lg">Registreren</button>
+                            <button type="submit" name="submiteForm" id="submitForm" class="btn btn-danger btn-block btn-lg">Registreren</button>
                         </form>
                     </div>
                 </div>
