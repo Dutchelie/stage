@@ -17,7 +17,7 @@
             var site_url = "<?php echo site_url("login"); ?>";
             console.log(form);
             $.ajax({
-                url: "<?php echo site_url('Register/check_input') ?>",
+                //url: "<?php //echo site_url('Register/check_input') ?>",
                 type: 'POST',
                 dataType: 'json',
                 data: form
@@ -88,7 +88,7 @@
                             </div>
                             <div class="g-recaptcha" data-sitekey="6Lfp_AoUAAAAACLL26T91aoh7S6_-86DjlO4DLQ9"></div>
                             
-                            <?php //echo add_csrf_token();?>
+                            <?php echo add_csrf_token();?>
                             <button type="submit" name="submitForm" id="submitForm" class="btn btn-danger btn-block btn-lg">Registreren</button>
                         </form>
                     </div>
