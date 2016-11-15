@@ -1,5 +1,19 @@
 <script type="text/javascript">
 
+//    $(function () {
+//        $("#password")            
+////            .on("password.popover", -> $(this).css(maxWidth: "500px"))
+//            .popover({
+//            title: 'Wachtwoord Voorwaarden', 
+//            content: "  Minimaal 5 kleine letters, \n\
+//                        1 Hoofdletter, \n\
+//                        1 Cijfer, \n\
+//                        1 speciaal teken."
+//            //templateCss: '<div style="width: 500px; background-color: red;"></div>'
+//        });
+//        //$("popover").css("background-color", "red");
+//    });
+
     $(function () {
         $("#form").submit(function (event) {
             $("#submitForm").attr("disabled", true);
@@ -10,21 +24,22 @@
 //            var repeatpw = $("#repeatpassword").val();
             console.log(form);
             $.ajax({
-                //url: "<?php //echo site_url('Wachtwoord/equal_password') ?>",
+                //url: "<?php //echo site_url('Wachtwoord/equal_password')   ?>",
                 type: 'POST',
                 dataType: 'json',
                 data: form
             })
                     .done(function (json) {
-                       console.log(json);
-                       $('#title').html("Melding :");
-                       $('#result').html(json.response);
-                       $('#popup').modal('show');
-                       if (json.response === "Wachtwoord gemaakt.") location.href = site_url;
-                    }) 
+                        console.log(json);
+                        $('#title').html("Melding :");
+                        $('#result').html(json.response);
+                        $('#popup').modal('show');
+                        if (json.response === "Wachtwoord gemaakt.")
+                            location.href = site_url;
+                    })
                     .fail(function (error) {
                         $('#title').html("Melding :");
-                        $('#result').html("error:" +error);
+                        $('#result').html("error:" + error);
                         $('#popup').modal('show');
                     })
                     .always(function () {
@@ -59,11 +74,21 @@
                     </div>
                     <!--De input gegevens worden verstuurd naar de index function in Register.php tenzij anders aangegeven.-->
                     <div class="form-bottom">
-<!--                        action="http://localhost/musemaps.nl/wachtwoord/"-->
+                        <!--                        action="http://localhost/musemaps.nl/wachtwoord/"-->
                         <form class="register-form" name="form" id="form" method="POST">
+                            <div class="form-group">
+                                <p>Wachtwoord Voorwaarden:</p>
+                                <p>5 kleine letters</p>
+                                <p>1 hoofdletter</p>
+                                <p>1 cijfer</p>
+                                <p>1 speciaal teken</p>
+                            </div>
                             <div class="form-group">
                                 <input type="password" name="password" id="password" required placeholder="password..." class="form-control input-lg">
                             </div>
+                            <div class="checkbox">
+                                <label><input id="showhide" type="checkbox" value="">Wachtwoord laten zien.</label>
+                            </div>    
                             <div class="form-group">
                                 <input type="password" name="repeatpassword" id="repeatpassword" required placeholder="herhaal password..." class="form-control input-lg">
                             </div>
