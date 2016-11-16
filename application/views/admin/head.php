@@ -22,6 +22,7 @@
         <link href="<?php echo asset_url("css/roll_icon/roll_icon.css") ?>" rel="stylesheet">
         <link href="<?php echo asset_url("css/admin.css") ?>" rel="stylesheet">
 
+        <script src="<?php echo asset_url("js/jquery/jquery.js") ?>"></script>
         <script src="<?php echo asset_url("js/jquery/jquery-3.1.0.min.js") ?>"></script>
         <script src="<?php echo asset_url("js/jquery/jquery-ui.min_sortable.js") ?>"></script>
         <script src="<?php echo asset_url("js/daterangepicker/moment.js") ?>"></script>
