@@ -13,8 +13,10 @@
                         Klik op de link hieronder om uw nieuwe wachtwoord te maken.
                     </div>
                     <div class="modal-footer">
-    
-                        <a href="<?php echo site_url('wachtwoord/?hash='. $encryptcode)?>" class="btn btn-primary">Confirm Now</a>
+                        <?php 
+                            //echo $encryptcode
+                        ?>
+                        <a href="<?php echo site_url('herstel/?hash='. $encryptcode)?>" class="btn btn-primary">Confirm Now</a>
                     </div>
                 </div>
             </div>
