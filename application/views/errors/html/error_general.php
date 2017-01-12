@@ -5,7 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <head>
         <meta charset="utf-8">
         <title><?php echo $heading ?></title>
+        <?php var_dump('test');?>
         <link href="<?php echo asset_url("css/bootstrap.css") ?>" rel="stylesheet">
+        <?php var_dump('test');?>
         <script src="<?php echo asset_url("js/jquery/jquery.js") ?>"></script>
         <script src="<?php echo asset_url("js/bootstrap.js") ?>"></script>
         <style type="text/css">
