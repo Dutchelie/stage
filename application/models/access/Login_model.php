@@ -1,10 +1,11 @@
 <?php
-
+//de login modules heb ik van mijn praktijkbegeleider gekregen, ik zal commenten wat ik kan
 class Login_model extends CI_Model {
-
+    //global variable $table for further use in this model
     private $table = "user_login";
+    //global array for further use in this model
     public $login_user_data = array();
-
+    
     public function user_id() {
         $session_data = $this->session->userdata($this->table);
         if (empty($session_data) === FALSE) {
@@ -55,7 +56,7 @@ class Login_model extends CI_Model {
                 ->where("(user.emailaddress = '$username' OR {$this->table}.username = '$username')")
                 ->where("user.is_active", 1)
                 ->where("user.is_del", 0)
-                ->where("{$this->table}.password", md5($password))
+                ->where("{$this->table}.password", $password)
                 ->limit(1)
                 ->get();
         if ($query->num_rows() > 0) {
@@ -78,11 +79,13 @@ class Login_model extends CI_Model {
         }
     }
 
-    public function check_data($username, $wachtwoord) {
-        $arr_rs = $this->get_one($username, $wachtwoord);
+    public function check_data($username, $password) {
+        $arr_rs = $this->get_one($username, $password);
+
         if (empty($arr_rs) === TRUE || $arr_rs['is_active'] == 0) {
             return FALSE;
         }
+        
         $this->login_user_data = $arr_rs;
         return TRUE;
     }
@@ -96,9 +99,11 @@ class Login_model extends CI_Model {
         $data["platform"] = $this->agent->platform();
         $this->edit($user_id, $data);
     }
-
+    //when user wants to logout
     public function logout() {
+        //if user_id is lower or equal to 0
         if ($this->user_id() <= 0) {
+            //return nothing, means he stays logged in
             return;
         }
         add_app_log($this->user_id(). " is uitgelogd");
@@ -134,5 +139,38 @@ class Login_model extends CI_Model {
         $this->session->set_userdata($this->table, $sess_array);
         $this->update_data($arr_rs['user_id']);
         add_app_log($arr_rs['username']." is ingelogd");
+    }
+    
+    public function get_password($username) {
+        
+        $this->db->select('password');
+        $this->db->from('user_login');
+
+        $this->db->where('username', $username);
+
+        $query = $this->db->get();
+        $result = $query->row_array();
+
+        return $result;
+    }
+    
+    public function check_ip($ip) {
+        $this->db->from('login_fails');
+
+        $this->db->where('ip_address', $ip);
+
+        $query = $this->db->get();
+        $check_result = $query->row_array();
+
+        return $check_result;
+    }
+    
+    public function update_fail($ip, $num) {
+        $this->db->where('ip_address', $ip);
+        $this->db->update('login_fails', $num);
+    }
+    
+    public function insert_fail($number) {
+        $this->db->insert('login_fails', $number);
     }
 }
