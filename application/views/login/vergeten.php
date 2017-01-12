@@ -19,7 +19,7 @@
                        $('#title').html("Melding :");
                        $('#result').html(json.response);
                        $('#popup').modal('show');
-                       if (json.response === "Wachtwoord gemaakt.") location.href = site_url;
+                       if (json.response === "Er is een mail naar u toegestuurd.") location.href = site_url;
                     }) 
                     .fail(function (error) {
                         $('#title').html("Melding :");
@@ -56,7 +56,6 @@
                             <i class="fa fa-lock"></i>
                         </div>
                     </div>
-                    <!--Here you can set a new password.-->
                     <div class="form-bottom">
                         <form class="register-form" name="form" id="form" method="POST">
                             <div class="form-group">
