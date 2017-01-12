@@ -13,8 +13,8 @@ $autoload['model'] = array(
     'access/register_model',
     'access/wachtwoord_model',
     'access/vergeten_model',
-    'access/herstel_model',
     'access/access_check_model',
+    'access/wwinstellen_model',
     'user/user_model',
     'user/user_gender_model',
     'user/user_group_model'
