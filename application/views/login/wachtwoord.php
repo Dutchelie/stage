@@ -15,16 +15,26 @@
 //    });
 
     $(function () {
+        $("#showhide").click(function () {
+            if ($("#password").attr("type") === "password") {
+                $("#password").attr("type", "text");
+            } else {
+                $("#password").attr("type", "password");
+            }
+        });
+    });
+
+    $(function () {
         $("#form").submit(function (event) {
             $("#submitForm").attr("disabled", true);
             event.preventDefault();
             var form = $("#form").serialize();
-            var site_url = "<?php echo site_url("login/"); ?>";
+            var site_url = "<?php echo site_url('msgpage'); ?>";
 //            var pw = $("#password").val();
 //            var repeatpw = $("#repeatpassword").val();
             console.log(form);
             $.ajax({
-                //url: "<?php //echo site_url('Wachtwoord/equal_password')   ?>",
+                //url: "<?php //echo site_url('Wachtwoord/equal_password')    ?>",
                 type: 'POST',
                 dataType: 'json',
                 data: form
@@ -34,7 +44,7 @@
                         $('#title').html("Melding :");
                         $('#result').html(json.response);
                         $('#popup').modal('show');
-                        if (json.response === "Wachtwoord gemaakt.")
+                        if (json.response === "U kunt inloggen.")
                             location.href = site_url;
                     })
                     .fail(function (error) {
@@ -92,7 +102,7 @@
                             <div class="form-group">
                                 <input type="password" name="repeatpassword" id="repeatpassword" required placeholder="herhaal password..." class="form-control input-lg">
                             </div>
-                            <?php echo add_csrf_token(); ?>
+<?php echo add_csrf_token(); ?>
                             <button type="submit" class="btn btn-danger btn-block btn-lg" id="submit">Registreer Wachtwoord</button>
                         </form>
                     </div>
