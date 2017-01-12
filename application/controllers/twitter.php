@@ -25,10 +25,13 @@ class Twitter extends CI_Controller
 		// Loading twitter configuration.
 		$this->config->load('twitter');
 		
-		if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
+                $acces_token = '777807353437708288-ybLseCg0tpjm4KvyibuHfFhVTcYT9nW';
+                $acces_token_secret = 'VBwUTh6mFztr8mufRALrJYqgsZALETX1hqPmyJ9Ao1sPf';
+                
+		if($this->session->userdata($acces_token) && $this->session->userdata($acces_token_secret))
 		{
 			// If user already logged in
-			$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('access_token'),  $this->session->userdata('access_token_secret'));
+			$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata($acces_token),  $this->session->userdata($acces_token_secret));
 		}
 		elseif($this->session->userdata('request_token') && $this->session->userdata('request_token_secret'))
 		{

@@ -40,23 +40,25 @@ class Access_check_model extends CI_Model {
 
     public function redirect_url() {
         $group_id = $this->login_model->group_id();
-        $site_url = site_url();
+        //$site_url = site_url();
         if ($group_id <= 0) {
             $page_url = NULL;
         }
         switch ($group_id) {
             case 1:
-                $page_url = 'admin/home';
+                $page_url = 'Admin is ingelogd!';
                 break;
+                //return'Admin logged in!';
             case 2:
-                $page_url = 'user/home';
+                $page_url = 'User is ingelogd!';
                 break;
+                //return'User logged in!';
             default:
                 $page_url = 'home';
                 break;
         }
 
-        return $site_url . $page_url;
+        return $page_url;
     }
 
     public function auto_redirect() {

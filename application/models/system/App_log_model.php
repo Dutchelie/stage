@@ -31,7 +31,7 @@ class App_log_model extends CI_Model {
         if ($query->num_rows() > 0) {
             return $query->row_array();
         } else {
-            return FALSE;
+            return array();
         }
     }
 

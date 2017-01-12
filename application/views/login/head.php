@@ -18,6 +18,7 @@
         <script src="<?php echo asset_url("js/bootstrap.js") ?>"></script>
         <script src="<?php echo asset_url("js/backstretch/jquery.backstretch.min.js") ?>"></script>
         <script src="<?php echo asset_url("js/daterangepicker/daterangepicker.js") ?>"></script>
+        <script src="<?php echo asset_url("js/countdown/jquery.countdown.js") ?>"></script>
         <script src='https://www.google.com/recaptcha/api.js?hl=nl'></script>
       
     </head>
