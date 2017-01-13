@@ -78,7 +78,7 @@ class Register extends CI_Controller {
         //Checking if firstname and lastname and emailaddress and birthday has a value
         if ($this->input->post('firstname') && $this->input->post('lastname') && $this->input->post('emailaddress') && $this->input->post('birthday')) {
             //go to terms_check if firstname, lastname, emailaddress and birthday has an value
-            $this->terms_check();
+            $this->captcha_check()();
         }
         //if the value of firstname, lastname, emailaddress or birthday is missing
         $msg = array(
