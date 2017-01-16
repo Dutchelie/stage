@@ -32,9 +32,7 @@
                         if (json.response === "Wacht 5 minuten voordat u weer kan inloggen.") {
                             $("#submitForm").attr("disabled", true);
                             var sec = 300;
-                            var time = sec ('MM:SS');
-                            //console.log(time);
-                            $('#test').append("<p>Wanneer deze tekst weg is en de timer op 0 komt dan kunt u weer inloggen. <span>"+time+"</span> seconde(n) over.</p>");
+                            $('#test').append("<p>Wanneer deze tekst weg is en de timer op 0 komt dan kunt u weer inloggen. <span>"+sec+"</span> seconde(n) over.</p>");
                             var timer = setInterval(function(){
                             $('#test span').text(sec--);
                             if (sec === -1) {
