@@ -224,12 +224,12 @@ class Register extends CI_Controller {
         //send the emailaddress to your model
         //if the emailaddress already exists get the id from it
         $email_user = $this->register_model->get_mail($user_email);
-        $user_id = $email_user['user_id'];
+        $id = $email_user['user_id'];
         //if the returned value of the Register_model is not NULL
         if (($email_user) !== NULL) {
             //if the emailaddress exists you get an user_id with it
             //with that user_id check with your model if that account is activated or not 
-            $acc_active = $this->register_model->is_active($user_id);
+            $acc_active = $this->register_model->is_active($id);
             // if the existed emailaddress is not activated
             if (($acc_active === $is_active) === FALSE) {
                 //if the emailaddress is not used/activated
@@ -246,14 +246,17 @@ class Register extends CI_Controller {
             $this->register_model->register_data($account_data);
         }
         //is the register is succesfull go to login_data_action
-        $this->login_data_action($user_id);
+        $this->login_data_action();
     }
     //here you put the emailaddress ready for login purposes
-    public function login_data_action($user_id) {
+    public function login_data_action() {
         //get the email from the form
         $user_email = $this->input->post('emailaddress');
         //check if emailaddress is already in use
         $check_mail = $this->register_model->get_login_mail($user_email);
+        //Get the id for the login table in the database
+        $get_id = $this->register_model->get_mail($user_email);
+        $user_id = $get_id['user_id'];
         //make an array of the user_id and your emailaddress for the database
         $user_login = array(
                 'user_id' => $user_id,
